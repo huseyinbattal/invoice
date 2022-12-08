@@ -4,6 +4,7 @@ import {useState } from 'react';
 import easyinvoice from 'easyinvoice';
 import { Button } from 'react-bootstrap';
 import Form from "react-bootstrap/Form";
+import {FileEarmarkArrowDownFill} from "react-bootstrap-icons"
 
 function App() {
   const [userName, setUserName] = useState("")
@@ -161,7 +162,7 @@ function App() {
       
   
     </Form>
-      <Button  className={loading?"loading-button":""}  disabled={loading ? true : false} onClick={() => downloadInvoice(info)}>{ loading?"Loading...":"Download"}</Button>
+      <Button  variant='warning' className={loading ? "loading-button" : ""} disabled={loading ? true : false} onClick={() => downloadInvoice(info)}>{loading ? <><FileEarmarkArrowDownFill color="green" size={40} />Loading...</>:<><FileEarmarkArrowDownFill color="green" size={40}/>Download PDF</>}</Button>
     </div>
   );
 }
