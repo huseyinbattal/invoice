@@ -161,7 +161,7 @@ function App() {
       
   
     </Form>
-      <Button style={{width:"25%"}}  className={loading?"loading-button":""}  disabled={loading ? true : false} onClick={() => downloadInvoice(info)}>{ loading?"Loading...":"Download PDF"}</Button>
+      <Button  className={loading?"loading-button":""}  disabled={loading ? true : false} onClick={() => downloadInvoice(info)}>{ loading?"Loading...":"Download"}</Button>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 body{
   background-image: url("./image//67.jpg");
-  background-repeat: no-repeat;
+ background-repeat: repeat-y;
   background-size: cover;
 
 }
