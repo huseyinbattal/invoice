@@ -120,7 +120,7 @@ function App() {
   
   };
     const result = await easyinvoice.createInvoice(data);
-    easyinvoice.download(`invoince.pdf`, result.pdf)
+    easyinvoice.download(`${param.userName}'s invoice.pdf`, result.pdf)
     setLoading(false)
   }
 
