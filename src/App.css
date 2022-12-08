@@ -1,4 +1,12 @@
 .App {
+  background-image: url("./image/45.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 20px;
+  border: 1px solid rgb(153, 141, 51);
+  border-radius: 10px;
+  margin-top: 50px;
+  color: rgb(0, 15, 130);
   text-align: center;
 }
 
@@ -36,3 +44,9 @@
     transform: rotate(360deg);
   }
 }
+
+.loading-button:disabled{
+
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }

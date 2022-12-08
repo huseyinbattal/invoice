@@ -1,16 +1,29 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import {useState } from 'react';
 import easyinvoice from 'easyinvoice';
 import { Button } from 'react-bootstrap';
-import { FloatingLabel } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
 function App() {
-
   const [userName, setUserName] = useState("")
+  const [zip, setZip] = useState(0)
+  const [city, setCity] = useState("")
+  const [country, setCountry] = useState("")
+  const [street, setStreet] = useState("")
+  const [loading, setLoading] = useState(false)
+
+
+  const info = {
+    userName,
+    street,
+    zip,
+    city,
+    country
+  }
   
-  const downloadInvoice = async () => {
+  const downloadInvoice = async (param) => {
+    setLoading(true)
     var data = {
       // Customize enables you to provide your own templates
       // Please review the documentation for instructions and examples
@@ -25,11 +38,11 @@ function App() {
       },
       // Your own data
       "sender": {
-          "company": {userName},
-          "address": "Sample Street 123",
-          "zip": "1234 AB",
-          "city": "Sampletown",
-          "country": "Samplecountry"
+        "company": `${param.userName}`,
+        "address":`${param.street}`,
+          "zip": `${param.zip}`,
+          "city": `${param.city}`,
+          "country": `${param.country}`
           //"custom1": "custom value 1",
           //"custom2": "custom value 2",
           //"custom3": "custom value 3"
@@ -108,30 +121,47 @@ function App() {
   };
     const result = await easyinvoice.createInvoice(data);
     easyinvoice.download(`invoince.pdf`, result.pdf)
-    
+    setLoading(false)
   }
 
   return (
-    <div className="container container-fluid mt-4 w-50">
+    <div className="container container-fluid w-50 App px-4 shadow-lg">
 
-<Form>
+<Form className='w-75 m-auto mt-3'>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Name:</Form.Label>
-        <Form.Control onChange={e=>setUserName(e.target.value)} type="text" placeholder="Enter name" />
+        
+        <Form.Control onChange={e=>setUserName(e.target.value)} type="text" placeholder="Full Name" />
+    
+        </Form.Group>
+        
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+        
+        <Form.Control onChange={e=>setStreet(e.target.value)} type="text" placeholder="Street" />
     
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        
+        
+        <Form.Control onChange={e=>setZip(e.target.value)} type="text" placeholder="Postal Code" />
     
-      <FloatingLabel controlId="floatingTextarea2" label="Comments">
-        <Form.Control
-          as="textarea"
-          placeholder="Leave a comment here"
-          style={{ height: '100px' }}
-        />
-      </FloatingLabel><br/>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+        
+        <Form.Control onChange={e=>setCity(e.target.value)} type="text" placeholder="City" />
+    
+        </Form.Group>
+        
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+        
+        <Form.Control onChange={e=>setCountry(e.target.value)} type="text" placeholder="Country" />
+    
+      </Form.Group>
+    
+      
   
     </Form>
-      <Button onClick={downloadInvoice}>Download</Button>
+      <Button style={{width:"25%"}}  className={loading?"loading-button":""}  disabled={loading ? true : false} onClick={() => downloadInvoice(info)}>{ loading?"Loading...":"Download PDF"}</Button>
     </div>
   );
 }
